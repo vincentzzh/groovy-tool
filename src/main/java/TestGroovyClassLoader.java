@@ -1,8 +1,11 @@
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.customizers.ImportCustomizer;
+import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class TestGroovyClassLoader {
 
@@ -12,6 +15,15 @@ public class TestGroovyClassLoader {
     public static void initGroovyClassLoader() {
         CompilerConfiguration config = new CompilerConfiguration();
         config.setSourceEncoding("UTF-8");
+
+        SecureASTCustomizer customizer = new SecureASTCustomizer();
+        customizer.setImportsWhitelist(new ArrayList<String>());
+        customizer.setStarImportsWhitelist(new ArrayList<String>());
+        customizer.setStaticImportsWhitelist(new ArrayList<String>());
+
+        config.addCompilationCustomizers(customizer);
+
+
         // 设置该GroovyClassLoader的父ClassLoader为当前线程的加载器(默认)
         groovyClassLoader = new GroovyClassLoader(Thread.currentThread().getContextClassLoader(), config);
     }

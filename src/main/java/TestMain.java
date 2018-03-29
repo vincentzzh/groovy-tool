@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
@@ -9,7 +11,9 @@ import org.codehaus.groovy.control.CompilationFailedException;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
-
+/**
+ * @since 1.6+
+ */
 public class TestMain {
 
     public static void main(String[] args) throws CompilationFailedException, IOException, ResourceException, ScriptException {
@@ -43,6 +47,13 @@ public class TestMain {
 
         Object result1 = engine.run("test_groo2.groovy", binding);
         System.out.println(result1);
+
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        System.out.println(s);
+
+        System.out.println(Paths.get(".").toAbsolutePath().normalize().toString());
+
 
     }
 
