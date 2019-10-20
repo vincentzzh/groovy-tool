@@ -1,4 +1,5 @@
 import groovy.lang.Binding;
+import groovy.lang.Script;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
@@ -18,6 +19,7 @@ public class GroovyScriptEngineTest {
 
         Object result1 = engine.run("test_groo2.groovy", binding);
         System.out.println(result1);
+
     }
 
     @Test
@@ -35,7 +37,7 @@ public class GroovyScriptEngineTest {
         Object result1 = engine.run("compute.groovy", binding);
 
         long middle = System.currentTimeMillis();
-        System.out.println("mid : " + (middle - start));
+        System.out.println("first run cost : " + (middle - start));
 
         for(int i = 0; i < 100;i++)
             result1 = engine.run("compute.groovy", binding);
