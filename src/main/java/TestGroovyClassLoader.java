@@ -30,7 +30,6 @@ public class TestGroovyClassLoader {
 
     /**
      * 通过GroovyClassLoader加载GroovyShell_2，并反射调用其sayHello(String name, String sex, int age)方法
-     *
      */
     public static String invokeSayHello(String name, String sex, int age) {
         String result = "";

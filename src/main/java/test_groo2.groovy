@@ -1,6 +1,4 @@
 
 
-a = name + " hello" 
-println a
-
+a = name + " hello"
 return a 
