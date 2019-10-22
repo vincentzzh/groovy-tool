@@ -11,7 +11,6 @@ public class GroovyScriptEngineTest {
 
     @Test
     public void test1() throws IOException, ResourceException, ScriptException {
-        // GroovyScriptEngine的根路径，可以传字符串数组，说明有多个根路径
         GroovyScriptEngine engine = new GroovyScriptEngine("src/main/java");
 
         Binding binding = new Binding();
@@ -34,16 +33,33 @@ public class GroovyScriptEngineTest {
         binding.setVariable("x2", 3);
 
 
-        Object result1 = engine.run("compute.groovy", binding);
+        engine.run("compute.groovy", binding);
 
         long middle = System.currentTimeMillis();
         System.out.println("first run cost : " + (middle - start));
 
-        for(int i = 0; i < 100;i++)
-            result1 = engine.run("compute.groovy", binding);
+        for(int i = 1; i <= 10000;i++) {
+            binding.setVariable("x1", i);
+            engine.run("compute.groovy", binding);
+        }
 
         long end = System.currentTimeMillis();
-        System.out.println("cost : " + ((end - middle)));
+        System.out.println("later cost : " + ((end - middle)));
 
+    }
+
+    @Test
+    public void testFileChange() throws IOException, ResourceException, ScriptException, InterruptedException {
+        GroovyScriptEngine engine = new GroovyScriptEngine("src/main/java");
+
+        Binding binding = new Binding();
+        binding.setVariable("name", "vincent");
+
+        while (true) {
+            Object result1 = engine.run("test_groo2.groovy", binding);
+            System.out.println(result1);
+            Thread.sleep(1000);
+            //now change the test_groo2.groovy file content without interrupt
+        }
     }
 }
