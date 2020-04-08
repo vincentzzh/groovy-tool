@@ -13,7 +13,7 @@ public class GroovyShellTest {
         GroovyShell groovyShell = new GroovyShell();
         Object result = groovyShell.evaluate(new File("src/main/java/SayHelloScript.groovy"));
 
-        System.out.println(result.toString());
+        System.out.println(result);
     }
 
     @Test

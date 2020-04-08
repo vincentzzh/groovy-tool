@@ -1,7 +1,6 @@
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
 import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
 import java.io.File;
@@ -26,12 +25,9 @@ public class TestGroovyClassLoader {
         groovyClassLoader = new GroovyClassLoader(Thread.currentThread().getContextClassLoader(), config);
     }
 
-    /**
-     * 通过GroovyClassLoader加载GroovyShell_2，并反射调用其sayHello(String name, String sex, int age)方法
-     */
-    public static String invokeSayHello(String name, String sex, int age) {
-        String result = "";
 
+    public static String invoke(String name, String sex, int age) {
+        String result = "";
         File groovyFile = new File("src/main/java/MessCompute.groovy");
         if (!groovyFile.exists()) {
             return result;
@@ -57,7 +53,7 @@ public class TestGroovyClassLoader {
     public static void main(String[] args) throws Exception {
 
         initGroovyClassLoader();
-        System.out.println(invokeSayHello("张三", "男", 25));
+        System.out.println(invoke("张三", "男", 25));
     }
 
 }
