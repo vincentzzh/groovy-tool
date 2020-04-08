@@ -10,20 +10,19 @@ public class GroovyScriptEngineTest {
 
     @Test
     public void test1() throws IOException, ResourceException, ScriptException {
-        // GroovyScriptEngine的根路径，可以传字符串数组，说明有多个根路径
+        // GroovyScriptEngine的根路径，可以传字符串数组，说明支持多个根路径
         GroovyScriptEngine engine = new GroovyScriptEngine("src/main/java");
 
         Binding binding = new Binding();
-        binding.setVariable("name", "vincent");
+        binding.setVariable("x1", 2);
+        binding.setVariable("x2", 3);
 
-        Object result1 = engine.run("test_groo2.groovy", binding);
-        System.out.println(result1);
+        Object result = engine.run("compute.groovy", binding);
+        System.out.println(result);
     }
 
     @Test
     public void test2() throws IOException, ResourceException, ScriptException {
-
-        long start = System.currentTimeMillis();
 
         GroovyScriptEngine engine = new GroovyScriptEngine("src/main/java");
 
@@ -31,17 +30,17 @@ public class GroovyScriptEngineTest {
         binding.setVariable("x1", 2);
         binding.setVariable("x2", 3);
 
-
-        Object result1 = engine.run("compute.groovy", binding);
+        long start = System.currentTimeMillis();
+        engine.run("compute.groovy", binding);
 
         long middle = System.currentTimeMillis();
-        System.out.println("mid : " + (middle - start));
+        System.out.println("init cost : " + (middle - start));
 
         for(int i = 0; i < 100;i++)
-            result1 = engine.run("compute.groovy", binding);
+            engine.run("compute.groovy", binding);
 
         long end = System.currentTimeMillis();
-        System.out.println("cost : " + ((end - middle)));
+        System.out.println("later cost : " + ((end - middle)));
 
     }
 }
